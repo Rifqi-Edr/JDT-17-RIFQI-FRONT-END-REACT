@@ -61,6 +61,9 @@ const Login = () => {
         <button className="bg-black text-white py-2 px-5 rounded-md cursor-pointer">
           Login
         </button>
+        <div className="text-sm text-gray-500 text-center mt-2">
+          <p>Username : emilys | Password : emilyspass</p>
+        </div>
       </form>
     </Form>
   );
