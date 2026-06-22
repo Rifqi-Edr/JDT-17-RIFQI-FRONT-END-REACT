@@ -37,7 +37,7 @@ function App() {
     <>
     <div className="flex flex-row gap-4">
       {Experience.map((el, index) => {
-        return <Box title={el.title} desc={el.desc} index={index} />;
+        return <Box title={el.title} desc={el.desc} />;
       })}
     </div>
     </>

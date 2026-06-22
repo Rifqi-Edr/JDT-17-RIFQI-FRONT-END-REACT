@@ -1,27 +1,22 @@
-import React from "react";
-
-const Index = ({
+const Box = ({
   title,
   desc,
-  index,
 }: {
   title: string;
   desc: string;
-  index: number;
 }) => {
   return (
-    <div
-      className={`w-72 h-72 ${index % 2 == 0 ? "bg-blue-800" : "bg-blue-100"} text-black rounded-lg flex flex-col`}
-    >
-      <div className="">
-        <h4>{title}</h4>
-      </div>
-      <hr className="w-5 self-center" />
-      <div className="">
-        <p>{desc}</p>
-      </div>
+    <div className="relative p-8 rounded-3xl flex flex-col gap-4 bg-white/50 backdrop-blur-sm border border-white/50 shadow-sm transition-all duration-500 hover:shadow-md hover:bg-white/60 overflow-hidden">
+      <span className="absolute inset-0 rounded-3xl pointer-events-none bg-gradient-to-br from-white/40 via-white/5 to-transparent" />
+      <h3 className="relative text-xl font-bold text-black tracking-wide">
+        {title}
+      </h3>
+      <div className="relative w-10 h-px bg-black/20" />
+      <p className="relative text-base text-black/80 leading-relaxed">
+        {desc}
+      </p>
     </div>
   );
 };
 
-export default Index;
+export default Box;

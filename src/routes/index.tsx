@@ -6,6 +6,7 @@ import CVPage from "@/container/CV";
 import Todo from "@/container/Todo";
 import Movies from "@/container/Movies";
 import Layout from "@/components/layout";
+import MovieDetails from "@/container/MovieDetail";
 
 export const routes = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const routes = createBrowserRouter([
           {
             path: "/movie-page",
             element: <Movies />,
+          },
+          {
+            path: "/movie-page/:movieId",
+            element: <MovieDetails/>
           },
         ],
       },

@@ -1,5 +1,5 @@
-import { getPopularMovies } from "./api";
-import type { ResponseData, Movie } from "./type";
+import { discoverMovies, getGenres, getMovieDetail, getMovieVideos, getPopularMovies, searchMovies } from "./api";
+import type { DiscoverParams, Genre, GenreListResponse, Movie, MovieDetail, ResponseData, Video } from "./type";
 
-export { getPopularMovies };
-export type { Movie, ResponseData };
+export { discoverMovies, getGenres, getMovieDetail, getMovieVideos, getPopularMovies, searchMovies };
+export type { DiscoverParams, Genre, GenreListResponse, Movie, MovieDetail, ResponseData, Video };

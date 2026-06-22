@@ -1,4 +1,3 @@
-import React from 'react'
 import Header from '../header';
 import { Outlet } from 'react-router';
 import Footer from '../footer';
@@ -7,12 +6,12 @@ const Layout = () => {
   return (
     <div className="flex flex-col h-screen w-full">
       <Header />
-      <div className=" w-full">
+      <div className="flex-1 w-full overflow-auto">
         <Outlet />
       </div>
       <Footer />
     </div>
   );
-}
+};
 
-export default Layout
+export default Layout;

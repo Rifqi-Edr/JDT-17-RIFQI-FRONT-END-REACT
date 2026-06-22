@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getPopularMovies, type Movie } from "../../service/Movies";
 
-export const usePopular = () => {
+export const usePopular = (page: number = 1) => {
   const [popularMovie, setPopularMovie] = useState<Movie[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
 
   const getPopularMovie = async () => {
     try {
-      const response = await getPopularMovies();
+      const response = await getPopularMovies(page);
       if (response) {
         setPopularMovie(response.results);
+        setTotalPages(response.total_pages);
       }
     } catch (error) {
       console.error(error);
@@ -17,6 +19,7 @@ export const usePopular = () => {
 
   useEffect(() => {
     getPopularMovie();
-  }, []);
-  return { popularMovie };
+  }, [page]);
+
+  return { popularMovie, totalPages };
 };
