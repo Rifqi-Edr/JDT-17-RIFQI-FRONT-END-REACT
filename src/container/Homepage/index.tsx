@@ -17,7 +17,7 @@ const Homepage = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-20">
+    <div className="max-w-5xl mx-auto px-4 md:px-8 py-8 md:py-20">
       <section className="mb-20">
         <span className="text-base text-black uppercase tracking-[0.2em] font-medium">
           Portfolio

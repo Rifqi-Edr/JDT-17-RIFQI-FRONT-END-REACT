@@ -36,7 +36,7 @@ const Filter = ({ filters, onChange, onClose }: Props) => {
       <div className="fixed inset-0 z-40 cursor-pointer" onClick={onClose} />
 
       {/* Panel */}
-      <div className="absolute top-full left-0 mt-2 z-50 w-80 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl shadow-black/5 p-5 font-indie">
+      <div className="absolute top-full left-0 mt-2 z-50 w-[calc(100vw-2rem)] max-w-80 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/50 shadow-xl shadow-black/5 p-4 md:p-5 font-indie">
         {/* Year */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-black/60 mb-1.5">

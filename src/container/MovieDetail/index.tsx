@@ -16,7 +16,7 @@ const MovieDetails = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-16">
+    <div className="max-w-5xl mx-auto px-4 md:px-8 py-8 md:py-16">
       <div className="flex flex-col md:flex-row gap-12">
         <div className="relative shrink-0">
           <span className="absolute inset-0 rounded-3xl pointer-events-none bg-linear-to-br from-white/30 via-white/5 to-transparent z-10" />

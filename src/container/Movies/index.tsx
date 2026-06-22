@@ -6,6 +6,7 @@ import MoviesComponent from "../../components/movies";
 import Search from "../../components/search";
 import Filter from "../../components/filter";
 import type { Movie } from "../../service/Movies";
+import { Clapperboard, Flame, CalendarClock, Star, SlidersHorizontal, SearchIcon } from "lucide-react";
 
 type Tab = "now_playing" | "popular" | "upcoming" | "top_rated";
 
@@ -156,69 +157,47 @@ const Movies = () => {
     : topRatedTotalPages;
   const showLoading = loading;
 
+  const getTabIcon = (t: Tab) => {
+    switch (t) {
+      case "now_playing": return <Clapperboard className="w-4 h-4" />;
+      case "popular": return <Flame className="w-4 h-4" />;
+      case "upcoming": return <CalendarClock className="w-4 h-4" />;
+      case "top_rated": return <Star className="w-4 h-4" />;
+    }
+  };
+
+  const TabButton = ({ t }: { t: Tab }) => (
+    <button
+      onClick={() => handleTabChange(t)}
+      className={`relative overflow-hidden cursor-pointer rounded-full transition-all duration-300 flex items-center gap-1.5 px-3 py-2 md:px-5 md:py-2.5 text-sm md:text-base font-medium tracking-wide ${
+        tab === t && !filtersApplied
+          ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
+          : "bg-transparent border border-transparent text-black/40 hover:text-black/60"
+      }`}
+    >
+      {tab === t && !filtersApplied && (
+        <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
+      )}
+      <span className="relative">{getTabIcon(t)}</span>
+      <span className="relative hidden md:inline">{t === "now_playing" ? "Now Playing" : t === "popular" ? "Popular" : t === "upcoming" ? "Upcoming" : "Top Rated"}</span>
+    </button>
+  );
+
   return (
     <div className="min-h-full">
-      <div className="max-w-6xl mx-auto px-8 py-16 font-indie">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-16 font-indie">
         {/* Tabs + Filter + Search */}
-        <div className="flex items-center gap-3 mb-10">
-          <button
-            onClick={() => handleTabChange("now_playing")}
-            className={`relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-base font-medium tracking-wide transition-all duration-300 ${
-              tab === "now_playing" && !filtersApplied
-                ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
-                : "bg-transparent border border-transparent text-black/40 hover:text-black/60"
-            }`}
-          >
-            {tab === "now_playing" && !filtersApplied && (
-              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
-            )}
-            <span className="relative">Now Playing</span>
-          </button>
-          <button
-            onClick={() => handleTabChange("popular")}
-            className={`relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-base font-medium tracking-wide transition-all duration-300 ${
-              tab === "popular" && !filtersApplied
-                ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
-                : "bg-transparent border border-transparent text-black/40 hover:text-black/60"
-            }`}
-          >
-            {tab === "popular" && !filtersApplied && (
-              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
-            )}
-            <span className="relative">Popular</span>
-          </button>
-          <button
-            onClick={() => handleTabChange("upcoming")}
-            className={`relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-base font-medium tracking-wide transition-all duration-300 ${
-              tab === "upcoming" && !filtersApplied
-                ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
-                : "bg-transparent border border-transparent text-black/40 hover:text-black/60"
-            }`}
-          >
-            {tab === "upcoming" && !filtersApplied && (
-              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
-            )}
-            <span className="relative">Upcoming</span>
-          </button>
-          <button
-            onClick={() => handleTabChange("top_rated")}
-            className={`relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-base font-medium tracking-wide transition-all duration-300 ${
-              tab === "top_rated" && !filtersApplied
-                ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
-                : "bg-transparent border border-transparent text-black/40 hover:text-black/60"
-            }`}
-          >
-            {tab === "top_rated" && !filtersApplied && (
-              <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
-            )}
-            <span className="relative">Top Rated</span>
-          </button>
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-8 md:mb-10">
+          <TabButton t="now_playing" />
+          <TabButton t="popular" />
+          <TabButton t="upcoming" />
+          <TabButton t="top_rated" />
 
           {/* Filter button */}
           <div className="relative">
             <button
               onClick={() => setFilterOpen(!filterOpen)}
-              className={`relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-base font-medium tracking-wide transition-all duration-300 ${
+              className={`relative overflow-hidden cursor-pointer rounded-full transition-all duration-300 flex items-center gap-1.5 px-3 py-2 md:px-5 md:py-2.5 text-sm md:text-base font-medium tracking-wide ${
                 filtersApplied
                   ? "bg-white/60 backdrop-blur-md border border-white/50 text-black shadow-sm"
                   : filterOpen
@@ -229,7 +208,8 @@ const Movies = () => {
               {(filtersApplied || filterOpen) && (
                 <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
               )}
-              <span className="relative">
+              <span className="relative"><SlidersHorizontal className="w-4 h-4" /></span>
+              <span className="relative hidden md:inline">
                 Filters{filtersApplied ? ` (${filters.genres.length + (filters.year ? 1 : 0) + (filters.adult ? 1 : 0)})` : ""}
               </span>
             </button>
@@ -248,30 +228,19 @@ const Movies = () => {
 
           <div className="flex-1" />
 
+          {/* Search button */}
           <button
             onClick={() => setSearchOpen(true)}
-            className="relative overflow-hidden cursor-pointer w-10 h-10 rounded-full bg-white/40 backdrop-blur-md border border-white/50 flex items-center justify-center hover:bg-white/60 transition-all duration-300"
+            className="relative overflow-hidden cursor-pointer w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/40 backdrop-blur-md border border-white/50 flex items-center justify-center hover:bg-white/60 transition-all duration-300 shrink-0"
           >
             <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
-            <svg
-              className="w-5 h-5 text-black/40"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <SearchIcon className="w-4 h-4 md:w-5 md:h-5 text-black/40" />
           </button>
         </div>
 
         {/* Grid */}
         {showLoading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-8">
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
@@ -280,7 +249,7 @@ const Movies = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-8">
             {movies.map((el) => (
               <MoviesComponent key={el.id} movie={el} />
             ))}
@@ -288,24 +257,24 @@ const Movies = () => {
         )}
 
         {/* Pagination */}
-        <div className="flex items-center justify-center gap-4 mt-12">
+        <div className="flex items-center justify-center gap-3 md:gap-4 mt-8 md:mt-12">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 bg-white/40 backdrop-blur-md border border-white/50 text-black disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/60"
+            className="relative overflow-hidden cursor-pointer px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-medium tracking-wide transition-all duration-300 bg-white/40 backdrop-blur-md border border-white/50 text-black disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/60"
           >
             <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
             <span className="relative">◀ Prev</span>
           </button>
 
-          <span className="text-sm text-black/50 font-medium tracking-wide">
+          <span className="text-xs md:text-sm text-black/50 font-medium tracking-wide">
             Page {page} of {totalPages}
           </span>
 
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="relative overflow-hidden cursor-pointer px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 bg-white/40 backdrop-blur-md border border-white/50 text-black disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/60"
+            className="relative overflow-hidden cursor-pointer px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-medium tracking-wide transition-all duration-300 bg-white/40 backdrop-blur-md border border-white/50 text-black disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/60"
           >
             <span className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-br from-white/30 via-transparent to-transparent" />
             <span className="relative">Next ▶</span>

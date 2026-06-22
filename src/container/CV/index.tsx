@@ -8,7 +8,7 @@ const CV = () => {
 
   return (
     <div className="min-h-full">
-      <div className="max-w-4xl mx-auto px-8 py-16 font-indie">
+      <div className="max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-16 font-indie">
         {/* Profile Section */}
         <div className="flex flex-col md:flex-row gap-8 mb-12">
           {/* Photo */}
